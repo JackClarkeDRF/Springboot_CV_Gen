@@ -1,95 +1,75 @@
 package org.example.model;
 
-
-import org.springframework.context.annotation.Primary;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
+/**
+ * This Class holds the BasicInfo object. It relates to the basic_info table in the database schema 'ResumeDatabase'.
+ * The Object hold the name,email,phone number and clearance level of an individual.
+ *
+ * The Primary Key of this schema is the email.
+ */
 
 @Entity
 @Table(name = "basic_info")
 public class BasicInfo {
-//    @Id
-//    @GeneratedValue(strategy= GenerationType.IDENTITY)
-//    private int id;
 
     @Column(name = "name")
-    private String name;
+    private String applicantName;
 
     @Id
     @Column(name = "email")
-    private String email;
+    private String applicantEmail;
 
     @Column(name = "phone_number")
-    private String phone;
+    private String applicantPhoneNumber;
 
     @Column(name = "clearance")
-    private String clearance;
+    private String applicantClearanceLevel;
 
-//    @ElementCollection
-//    @Column(name = "certs")
-//    private List<String> certs;
 
     public BasicInfo(String name, String email, String phone, String clearance) {
 
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.clearance = clearance;
-//        this.certs = certs;
+        this.applicantName = name;
+        this.applicantEmail = email;
+        this.applicantPhoneNumber = phone;
+        this.applicantClearanceLevel = clearance;
     }
 
     public BasicInfo() {
 
     }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-
     public String getName() {
-        return name;
+        return applicantName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.applicantName = name;
     }
 
     public String getEmail() {
-        return email;
+        return applicantEmail;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.applicantEmail = email;
     }
 
     public String getPhone() {
-        return phone;
+        return applicantPhoneNumber;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.applicantPhoneNumber = phone;
     }
 
     public String getClearance() {
-        return clearance;
+        return applicantClearanceLevel;
     }
 
     public void setClearance(String clearance) {
-        this.clearance = clearance;
+        this.applicantClearanceLevel = clearance;
     }
 
-//    public List<String> getCerts() {
-//        return certs;
-//    }
-//
-//    public void setCerts(List<String> certs) {
-//        this.certs = certs;
-//    }
 
 }

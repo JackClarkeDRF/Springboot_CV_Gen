@@ -26,12 +26,12 @@
 
   <dependencies>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>junit</groupId>-->
+<!--      <artifactId>junit</artifactId>-->
+<!--      <version>4.11</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -41,20 +41,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-<!--      <version>2.0.3.RELEASE</version>-->
     </dependency>
-
-<!--      <dependency>-->
-<!--          <groupId>org.springframework.boot</groupId>-->
-<!--          <artifactId>spring-boot</artifactId>-->
-<!--          <version>2.0.3.RELEASE</version>-->
-<!--      </dependency>-->
-
-<!--    <dependency>-->
-<!--      <groupId>javax.persistence</groupId>-->
-<!--      <artifactId>javax.persistence-api</artifactId>-->
-<!--      <version>2.2</version>-->
-<!--    </dependency>-->
 
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -74,22 +61,6 @@
       <version>2.3.0</version>
     </dependency>
 
-
-
-
-
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.boot</groupId>-->
-<!--      <artifactId>spring-boot-autoconfigure</artifactId>-->
-<!--      <version>2.0.3.RELEASE</version>-->
-<!--    </dependency>-->
-<!--    <dependency>-->
-<!--      <groupId>org.springframework.data</groupId>-->
-<!--      <artifactId>spring-data-jpa</artifactId>-->
-<!--      <version>2.0.3.RELEASE</version>-->
-<!--    </dependency>-->
-
-
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
@@ -103,8 +74,47 @@
     </dependency>
 
 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+<!--      <version>2.2.6.RELEASE</version>-->
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>2.22.0</version>
+    </dependency>
 
 
+    <!--      <dependency>-->
+    <!--          <groupId>org.springframework.boot</groupId>-->
+    <!--          <artifactId>spring-boot</artifactId>-->
+    <!--          <version>2.0.3.RELEASE</version>-->
+    <!--      </dependency>-->
+
+    <!--    <dependency>-->
+    <!--      <groupId>javax.persistence</groupId>-->
+    <!--      <artifactId>javax.persistence-api</artifactId>-->
+    <!--      <version>2.2</version>-->
+    <!--    </dependency>-->
+
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.boot</groupId>-->
+    <!--      <artifactId>spring-boot-autoconfigure</artifactId>-->
+    <!--      <version>2.0.3.RELEASE</version>-->
+    <!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.data</groupId>-->
+    <!--      <artifactId>spring-data-jpa</artifactId>-->
+    <!--      <version>2.0.3.RELEASE</version>-->
+    <!--    </dependency>-->
 
 <!--    <dependency>-->
 <!--      <groupId>org.hibernate.javax.persistence</groupId>-->
@@ -126,17 +136,17 @@
 <!--      <scope>test</scope>-->
 <!--    </dependency>-->
 
-<!--    <dependency>-->
-<!--      <groupId>org.junit.vintage</groupId>-->
-<!--      <artifactId>junit-vintage-engine</artifactId>-->
-<!--      <scope>test</scope>-->
-<!--      <exclusions>-->
-<!--        <exclusion>-->
-<!--          <groupId>org.hamcrest</groupId>-->
-<!--          <artifactId>hamcrest-core</artifactId>-->
-<!--        </exclusion>-->
-<!--      </exclusions>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hamcrest</groupId>
+          <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
 
   <build>

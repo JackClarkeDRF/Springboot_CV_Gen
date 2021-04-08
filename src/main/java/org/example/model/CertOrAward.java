@@ -1,9 +1,13 @@
 package org.example.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+/**
+ * This Class holds the CertOrAward Object. It relates to the cert_or_award table in the database schema 'ResumeDatabase'.
+ * The Object hold an email and a description of the certification or Award.
+ *
+ * The Primary Key of this schema is the email.
+ */
 
 @Entity
 @Table(name = "cert_or_award")

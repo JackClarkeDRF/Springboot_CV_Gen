@@ -1,23 +1,21 @@
 package org.example;
 
-
 import com.google.gson.Gson;
 import org.example.model.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.ServiceLoader;
+import java.util.Arrays;
+
 
 /**
  * Hello world!
  *
  */
+
 @SpringBootApplication(scanBasePackages={
         "org.example.*", "org.example.controller","org.example.repository","org.example.service"})
-@EnableJpaRepositories("org.example.repository")
 public class App 
 {
     public static void main( String[] args )
@@ -30,36 +28,25 @@ public class App
     public static void jsonTester(){
 
         Gson json = new Gson();
-//
-        Skill testSkill = new Skill("Java", 6);
-        ArrayList<Skill> skills = new ArrayList<>();
-        skills.add(testSkill);
-       // ArrayList skills = new ArrayList<>();
 
-        Job testJob = new Job("DFR","Reception", "AUG 2020", "MAR 2021", "Boring!");
-        ArrayList<Job> jobs = new ArrayList<>();
-        jobs.add(testJob);
+        BasicInfo b_info = new BasicInfo("Jack", "Jack@drf.com","0455-658-293", "Baseline");
 
-        Education education = new Education("ANU", "BA", "2022");
-        ArrayList<Education> educations = new ArrayList<>();
-        educations.add(education);
+        ArrayList<Skill> skills = new ArrayList<>(Arrays.asList(new Skill ("Java", 6)));
 
-        ArrayList<CertOrAward> certs = new ArrayList<>();
-        CertOrAward cert1  = new CertOrAward("?Udemy cource");
-        certs.add(cert1);
+        ArrayList<Job> jobs = new ArrayList<>(Arrays.asList(new Job("DFR","Reception", "AUG 2020", "MAR 2021", "Boring!")));
 
+        ArrayList<Education> educations = new ArrayList<>(Arrays.asList(new Education("ANU", "BA", "2022")));
 
-
-        Resume testResume = new Resume("Jack", "Jack@DRF.com","0455-658-293", "Baseline", skills, jobs, educations, certs );
+        ArrayList<CertOrAward> certs = new ArrayList<>(Arrays.asList(new CertOrAward("Udemy course: Spark")));
+        Resume testResume = new Resume(b_info, skills, jobs, educations, certs);
 
         String jsonResume = json.toJson(testResume);
 
         System.out.println(jsonResume);
 
-
         Resume fromJsonToResume = json.fromJson(jsonResume, Resume.class);
 
-        System.out.println(fromJsonToResume.getEmail());
+        System.out.println(fromJsonToResume.getBasicInfo().getEmail());
 
 
 

@@ -1,10 +1,15 @@
 package org.example.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+/**
+ * This Class holds the Skill Object. It relates to the skills table in the database schema 'ResumeDatabase'.
+ * The Object holds the email of an individual. It also holds a particular skill that relates to a person. This skill
+ * is comprised of a name (i.e. Angular, java, etc.) and a ranking out of 5 for that skill.
+ *
+ * The Primary Key of this schema is the email.
+ */
+//TODO:This may need revision from it's current form.
 @Entity
 @Table(name = "skills")
 public class Skill {

@@ -1,10 +1,14 @@
 package org.example.model;
 
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+/**
+ * This Class holds the Education Object. It relates to the education table in the database schema 'ResumeDatabase'.
+ * The Object holds the email of an individual. It also holds the Institution Name, Degree Type and Graduation date of
+ * an individuals education history.
+ *
+ * The Primary Key of this schema is the email.
+ */
 
 @Entity
 @Table(name = "education")

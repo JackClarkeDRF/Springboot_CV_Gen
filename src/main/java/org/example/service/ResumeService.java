@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @ComponentScan("org.example.*")
@@ -26,99 +27,93 @@ public class ResumeService {
     private CertOrAwardRepository certOrAwardRepository;
 
 
-    public ArrayList<Resume> getAllResumes(){
-        ArrayList<Resume> resumes = new ArrayList<>();
-//        if(repository.count() != 0){
-//            repository.findAll().forEach(resume -> resumes.add(resume));
-//            return resumes;
-//
-//        }else{
-//            return null;
-//        }
-        return null;
+    /**
+     * The getAllResumes() Method will iterate through the entire database and return each entry in the ResumeDatabase
+     * Schema as a resume.
+     *
+     * @return Returns a json String containing an array of every resume in the ResumeDatabase schema.
+     */
+
+    //TODO: Implement exception handling in the getAllResumes() Method.
+    public List<Resume> getAllResumes(){
+
+        long resumeCount = basicInfoRepository.countAll();
+        List<BasicInfo> basicInfoList = basicInfoRepository.findAll();
+        List<Resume> resumeList = new ArrayList<>();
+        try {
+            for(int i=0; i< resumeCount; i++){
+                Resume current = getByID(basicInfoList.get(i).getEmail());
+                resumeList.add(current);
+            }
+
+        }catch (NullPointerException e){
+            System.out.println("Null Pointer the Database is empty " + e.getMessage());
+        }
+        return resumeList;
     }
 
 
-
+    /**
+     * The getByID() method will call the findByID() method in each of the repositories and then collate these returned
+     * objects to produce a resume.If an invalid String is passed then the method will return an empty resume.
+     *
+     * Note: Each object is in its non-Email form except for the BasicInfo object which does not have a non-email form.
+     *
+     * @param id is the string value used to identify a unique resume. This is the email of an individual.
+     * @return Returns a complete Resume of an individual.
+     */
     public Resume getByID(String id){
-        System.out.println("VBefore the find by email call");
-        BasicInfo basicInfo = basicInfoRepository.findById(id).get();
-        System.out.println("After the find by email call");
+        try {
+            Optional<BasicInfo> basicInfoOptional = basicInfoRepository.findById(id);
+            BasicInfo basicInfo = null;
+
+            try {
+                basicInfo = basicInfoOptional.get();
+            }catch (NoSuchElementException e){
+                return null;
+            }
+
+            String emailID = basicInfo.getEmail();
 
 
-        // BasicInfo basicInfo = basicInfoList.get(0);
-        String name = basicInfo.getName();
-        String emailID = basicInfo.getEmail();
-        String phone_number = basicInfo.getPhone();
-        String clearance = basicInfo.getClearance();
-        // ArrayList<Boolean> skills = (ArrayList<Boolean>) basicInfo.getSkills();
-        // List<String> certs =  basicInfo.getCerts();
-        System.out.println(phone_number);
-        //System.out.println(certs.get(0));
+            List<Skill> skillList = skillRepository.findAllById(Collections.singleton(emailID)).stream()
+                    .map(value -> value.toNonEmailForm())
+                    .collect(Collectors.toList());
 
+            List<Job> jobList = jobRepository.findAllById(Collections.singleton(emailID)).stream()
+                    .map(value -> value.toNonEmailForm())
+                    .collect(Collectors.toList());
 
-        Skill skill = skillRepository.findById(emailID).get();
-        System.out.println(skill.getSkill_name());
+            List<Education> educationList = educationRepository.findAllById(Collections.singleton(emailID))
+                    .stream()
+                    .map(value -> value.toNonEmailForm())
+                    .collect(Collectors.toList());
 
-        List<Skill> skillIterable = skillRepository.findAllByEmail((emailID));
-        System.out.println(skillIterable.size());
+            List<CertOrAward> certOrAwardList = certOrAwardRepository.findAllById(Collections.singleton(emailID)).stream()
+                    .map(value -> value.toNonEmailForm())
+                    .collect(Collectors.toList());
 
-        ArrayList<Skill> skillArrayList = new ArrayList<>();
-        int skillCounter = 0;
-        while(skillCounter < skillIterable.size()){
-            skillArrayList.add(((List<Skill>) skillIterable).get(skillCounter).toNonEmailForm());
-            skillCounter++;
+            return new Resume(basicInfo, skillList, jobList, educationList, certOrAwardList);
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+            return null;
         }
-
-        // Need to do a find all operation on these
-        List<Education> educationIterable = educationRepository.findAllById(Collections.singleton(emailID));
-
-        ArrayList<Education> educationArrayList = new ArrayList<>();
-        // Each value will now need to be trimmed dwn to its non email form then put into an array.
-
-        //educationArrayList.addAll((Collection<? extends Education>) educationIterable);
-        int eduCounter = 0;
-        while(eduCounter < educationIterable.size()){
-            educationArrayList.add(((List<Education>) educationIterable).get(eduCounter).toNonEmailForm());
-            eduCounter++;
-        }
-
-
-        // Education Education = educationRepository.findById(emailID).get();
-        List<Job> jobIterable = jobRepository.findAllById(Collections.singleton(emailID));
-        ArrayList<Job> jobArrayList = new ArrayList<>();
-        int jobCounter = 0;
-        while (jobCounter < jobIterable.size()){
-            jobArrayList.add(((List<Job>) jobIterable).get(jobCounter).toNonEmailForm());
-            jobCounter++;
-        }
-
-        List<CertOrAward> certOrAwardIterable = certOrAwardRepository.findAllById(Collections.singleton(emailID));
-        ArrayList<CertOrAward> certOrAwardArrayList = new ArrayList<>();
-        int certCounter = 0;
-        while (certCounter < certOrAwardIterable.size()){
-            certOrAwardArrayList.add(((certOrAwardIterable).get(certCounter).toNonEmailForm()));
-        }
-
-
-        Resume currentResume = new Resume(name,emailID,phone_number,clearance,skillArrayList,jobArrayList,educationArrayList,certOrAwardArrayList);
-
-        return currentResume;
     }
 
+    /**
+     * The createResume() method will break down the resume object into the individual objects and then call the save()
+     * methods in each of the repositories. To save the objects into the ResumeDatabase.
+     *
+     * @param resume This is the resume created in the controller class from the Json string passed in by the front end
+     *               application.
+     */
     public void createResume(Resume resume){
 
-
-        String name = resume.getName();
-        String email = resume.getEmail();
-        String phone_number = resume.getPhone_number();
-        String clearance = resume.getClearance_level();
-        List<CertOrAward> certs = resume.getCertifications();
-
-        BasicInfo basicInfo = new BasicInfo(name,email,phone_number,clearance);
+        BasicInfo basicInfo = resume.getBasicInfo();
         List<Job> prev_jobs = resume.getPrevious_jobs();
         List<Education> education = resume.getEducation();
         List<Skill> skills = resume.getSkills();
+        List<CertOrAward> certs = resume.getCertifications();
 
         basicInfoRepository.save(basicInfo);
 
@@ -133,38 +128,28 @@ public class ResumeService {
         for(int i=0;i<prev_jobs.size();i++) {
             skillRepository.save(skills.get(i));
         }
+        for(int i=0;i<certs.size();i++) {
+            certOrAwardRepository.save(certs.get(i));
+        }
     }
 
 
-
+    /**
+     * The update() method works calls the createResume() method.
+     *
+     * @param resume This is the resume created in the controller class from the Json string passed in by the front end
+     *               application.
+     */
     public void update(Resume resume){
-
-//        String name = resume.getName();
-//        String email = resume.getEmail();
-//        String phone_number = resume.getPhone_number();
-//        String clearance = resume.getClearance_level();
-//        List<String> certs = resume.getCertifications();
-//
-//        BasicInfo basicInfo = new BasicInfo(name,email,phone_number,clearance,certs);
-//        List<Job> prev_jobs = resume.getPrevious_jobs();
-//        List<Education> education = resume.getEducation();
-//        List<Skill> skills = resume.getSkills();
-//
-//        basicInfoRepository.save(basicInfo);
-//
-//        for(int i=0;i<prev_jobs.size();i++)       {
-//            jobRepository.save(prev_jobs.get(i));
-//        }
-//
-//        for(int i=0;i<prev_jobs.size();i++) {
-//            educationRepository.save(education.get(i));
-//        }
-//
-//        for(int i=0;i<prev_jobs.size();i++) {
-//            skillRepository.save(skills.get(i));
-//        }
+        createResume(resume);
     }
 
+    /**
+     * The delete() method calls the deleteById() method in each of the repositories which deletes the object in each
+     * respective table in the ResumeDatabase schema.
+     *
+     * @param id This is the ID String of a resume which is the email of an individual.
+     */
     public void delete(String id){
         basicInfoRepository.deleteById(id);
         jobRepository.deleteById(id);
