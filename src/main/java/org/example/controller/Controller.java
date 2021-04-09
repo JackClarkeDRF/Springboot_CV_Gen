@@ -54,21 +54,21 @@ public class Controller {
      */
     //TODO: Possibly make changes to the unique identifier. Handle empty database exceptions. This shouldn't parse an array.
     @GetMapping(value = "/resume_model/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String[]> getResumeByID(@PathVariable("id") String id) {
-
-        BasicInfo bi_test = Optional.ofNullable(basicInfoRepository.findById(id).get()).get();
-        List<BasicInfo> test_list = new ArrayList<>();
-        test_list.add(bi_test);
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(new String[]{json.toJson(bi_test)});
-
-//        Optional<Resume> resumeOptional = Optional.ofNullable(resumeService.getByID(id));
-//        if(resumeOptional.isPresent()){
-//            Resume selectedResume = resumeOptional.get();
-//            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(selectedResume.toJSON());
+    public ResponseEntity<String> getResumeByID(@PathVariable("id") String id) {
 //
-//        } else {
-//            return new ResponseEntity<>( "No Resume with that ID found", HttpStatus.NOT_FOUND);
-//        }
+//        BasicInfo bi_test = Optional.ofNullable(basicInfoRepository.findById(id).get()).get();
+//        List<BasicInfo> test_list = new ArrayList<>();
+//        test_list.add(bi_test);
+//        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(new String[]{json.toJson(bi_test)});
+
+        Optional<Resume> resumeOptional = Optional.ofNullable(resumeService.getByID(id));
+        if(resumeOptional.isPresent()){
+            Resume selectedResume = resumeOptional.get();
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(selectedResume.toJSON());
+
+        } else {
+            return new ResponseEntity<>( "No Resume with that ID found", HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
