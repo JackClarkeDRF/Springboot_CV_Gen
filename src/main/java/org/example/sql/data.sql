@@ -39,7 +39,7 @@ CREATE TABLE jobs (
 );
 
 INSERT INTO jobs (email, org_name, position,start_date,end_date,description) VALUES
-('Jack@drf.com', 'DFR', 'Reception','AUG 2020', 'MAR 2021','Boring!');DROP TABLE IF EXISTS jobs;
+('Jack@drf.com', 'DFR', 'Reception','12/04/2020', '24/06/2021','Admin Duties');DROP TABLE IF EXISTS jobs;
 
 CREATE TABLE skills (
                            email VARCHAR(250) PRIMARY Key NOT NULL,

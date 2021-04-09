@@ -16,20 +16,20 @@ public class CertOrAward {
     @Column(name = "email")
     private String email;
     @Column(name = "description")
-    private String description;
+    private String applicantJobAwards;
 
 
     public CertOrAward(){
 
     }
 
-    public CertOrAward(String description){
-        this.description = description;
+    public CertOrAward(String applicantJobAwards){
+        this.applicantJobAwards = applicantJobAwards;
     }
 
-    public CertOrAward(String email, String description) {
+    public CertOrAward(String email, String applicantJobAwards) {
         this.email = email;
-        this.description = description;
+        this.applicantJobAwards = applicantJobAwards;
     }
 
 
@@ -41,15 +41,15 @@ public class CertOrAward {
         this.email = email;
     }
 
-    public String getDescription() {
-        return description;
+    public String getApplicantJobAwards() {
+        return applicantJobAwards;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setApplicantJobAwards(String description) {
+        this.applicantJobAwards = description;
     }
 
     public CertOrAward toNonEmailForm(){
-        return new CertOrAward(this.description);
+        return new CertOrAward(this.applicantJobAwards);
     }
 }

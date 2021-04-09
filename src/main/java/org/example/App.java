@@ -33,7 +33,7 @@ public class App
 
         ArrayList<Skill> skills = new ArrayList<>(Arrays.asList(new Skill ("Java", 6)));
 
-        ArrayList<Job> jobs = new ArrayList<>(Arrays.asList(new Job("DFR","Reception", "AUG 2020", "MAR 2021", "Boring!")));
+        ArrayList<Job> jobs = new ArrayList<>(Arrays.asList(new Job("DFR","Reception", "A0", "MAR 2021", "Boring!")));
 
         ArrayList<Education> educations = new ArrayList<>(Arrays.asList(new Education("ANU", "BA", "2022")));
 

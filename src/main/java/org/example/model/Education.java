@@ -18,25 +18,25 @@ public class Education {
     private String email;
 
     @Column(name = "institution_name")
-    private String orgName;
+    private String applicantEducationInst;
 
     @Column(name = "degree_type")
-    private String degreeType;
+    private String applicantDegree;
 
     @Column(name = "grad_date")
-    private String grad_date;
+    private String applicantGradDate;
 
-    public Education(String email, String orgName, String degreeType, String grad_date){
+    public Education(String email, String applicantEducationInst, String applicantDegree, String applicantGradDate){
         this.email = email;
-        this.orgName = orgName;
-        this.degreeType = degreeType;
-        this.grad_date = grad_date;
+        this.applicantEducationInst = applicantEducationInst;
+        this.applicantDegree = applicantDegree;
+        this.applicantGradDate = applicantGradDate;
     }
 
-    public Education(String orgName, String degreeType, String grad_date){
-        this.orgName = orgName;
-        this.degreeType = degreeType;
-        this.grad_date = grad_date;
+    public Education(String applicantEducationInst, String applicantDegree, String applicantGradDate){
+        this.applicantEducationInst = applicantEducationInst;
+        this.applicantDegree = applicantDegree;
+        this.applicantGradDate = applicantGradDate;
     }
 
     public Education() {
@@ -51,34 +51,34 @@ public class Education {
         this.email = email;
     }
 
-    public String getOrgName() {
-        return orgName;
+    public String getApplicantEducationInst() {
+        return applicantEducationInst;
     }
 
-    public void setOrgName(String orgName) {
+    public void setApplicantEducationInst(String orgName) {
 
-        this.orgName = orgName;
+        this.applicantEducationInst = orgName;
     }
 
-    public String getDegreeType() {
+    public String getApplicantDegree() {
 
-        return degreeType;
+        return applicantDegree;
     }
 
-    public void setDegreeType(String degreeType) {
+    public void setApplicantDegree(String degreeType) {
 
-        this.degreeType = degreeType;
+        this.applicantDegree = degreeType;
     }
 
-    public String getGrad_date() {
-        return grad_date;
+    public String getApplicantGradDate() {
+        return applicantGradDate;
     }
 
-    public void setGrad_date(String grad_date) {
-        this.grad_date = grad_date;
+    public void setApplicantGradDate(String grad_date) {
+        this.applicantGradDate = grad_date;
     }
 
     public Education toNonEmailForm(){
-        return new Education(this.orgName,this.degreeType,this.grad_date);
+        return new Education(this.applicantEducationInst,this.applicantDegree,this.applicantGradDate);
     }
 }
